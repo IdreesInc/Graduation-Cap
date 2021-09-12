@@ -18,6 +18,7 @@ options.rows = 32
 options.chain_length = 1
 options.parallel = 1
 options.hardware_mapping = 'adafruit-hat'  # If you have an Adafruit HAT: 'adafruit-hat'
+options.brightness = 90
 
 matrix = RGBMatrix(options = options)
 
@@ -30,6 +31,6 @@ matrix.SetImage(image.convert('RGB'))
 # try:
 print("Press CTRL-C to stop.")
 while True:
-    image = image.rotate(90)
+    # image = image.rotate(90)
     matrix.SetImage(image.convert('RGB'))
     time.sleep(0.05)
