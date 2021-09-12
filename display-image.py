@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import time
 import sys
 
@@ -31,6 +31,6 @@ matrix.SetImage(image.convert('RGB'))
 # try:
 print("Press CTRL-C to stop.")
 while True:
-    # image = image.rotate(90)
+    image = image.rotate(90)
     matrix.SetImage(image.convert('RGB'))
     time.sleep(0.05)
