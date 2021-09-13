@@ -32,10 +32,11 @@ def rotate(angle):
     image = image.rotate(90)
     matrix.SetImage(image, 0, 0, False)
 
-def draw_on_matrix(x, y):
+def draw_on_matrix(list_of_coordinates):
     global image
-    print("Drawing at x: {} y: {}".format(x, y))
-    image.putpixel((x, y), (255, 0, 0, 255))
+    for coordinates in list_of_coordinates:
+        print("Drawing at {}".format(coordinates))
+        image.putpixel((coordinates[0], coordinates[1]), (255, 0, 0, 255))
     matrix.SetImage(image, 0, 0, False)
 
 sio = socketio.Client()
@@ -68,7 +69,6 @@ def transform(data):
 def draw(data):
     print('Draw Command Received')
     print(data)
-    for coordinates in data:
-        draw_on_matrix(coordinates[0], coordinates[1])
+    draw_on_matrix(data)
 
 sio.connect(config["host"])
