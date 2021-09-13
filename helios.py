@@ -2,7 +2,6 @@
 
 import time
 import sys
-
 import json
 import socketio
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
@@ -24,13 +23,20 @@ matrix = RGBMatrix(options = matrix_options)
 
 image = Image.open(config["splash"])
 image.thumbnail((matrix.width, matrix.height))
-matrix.SetImage(image.convert('RGB'))
+image = image.convert("RGB")
+matrix.SetImage(image)
 
 def rotate(angle):
     global image
-    print(angle)
+    print("Rotating to {}".format(angle))
     image = image.rotate(90)
-    matrix.SetImage(image.convert('RGB'), 0, 0, False)
+    matrix.SetImage(image, 0, 0, False)
+
+def draw_on_matrix(x, y):
+    global image
+    print("Drawing at x: {} y: {}".format(x, y))
+    image.putpixel((x, y), (255, 0, 0, 255))
+    matrix.SetImage(image, 0, 0, False)
 
 sio = socketio.Client()
 
@@ -57,5 +63,12 @@ def transform(data):
     print(data)
     if data["operation"] == "rotate":
         rotate(data["angle"])
+
+@sio.event
+def draw(data):
+    print('Draw Command Received')
+    print(data)
+    for coordinates in data:
+        draw_on_matrix(coordinates[0], coordinates[1])
 
 sio.connect(config["host"])

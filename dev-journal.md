@@ -9,6 +9,7 @@
 - Created Helios-Relay, which will run the relay code.
 - Turns out WebSockets are messy and I am short on time. Let's use Socket.IO and skip all of that mess.
 - Running into an interesting issue where using SetImage from a python-socketio event callback causes ```OverflowError: can't convert negative value to size_t```. According to a comment on [this](https://github.com/hzeller/rpi-rgb-led-matrix/issues/1056) issue, it is because it is being executed on something other than the main thread. Setting the "unsafe" argument to True fixed the problem, but the updating is a little bit slower. I will consider using [techniques](https://www.geeksforgeeks.org/python-communicating-between-threads-set-1/) for passing messages to the main thread if this becomes a problem.
+- Got Socket.IO working on the Python hat server, the Node.js relay server, and the JavaScript web client provided by the relay server. Added basic pixel-by-pixel drawing that is very slow and entirely unoptimized.
 
 ## September 10th, 2021
 
