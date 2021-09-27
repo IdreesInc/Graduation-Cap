@@ -1,5 +1,12 @@
 # Dev Journal
 
+## September 27th, 2021
+
+- Now that the graduation cap project has gone public, time for me to clean things up a bit!
+- Renaming everything from the internal name "Helios" to just "Graduation Cap" so that it is more visible to people searching for the source code.
+- Removing canvas code for now.
+  - Since the focus has switched from a public canvas to a public billboard, I am going to set aside the canvas stuff for a later date to prioritize creating a robust system for displaying images and messages.
+
 ## September 12th, 2021
 
 - Trying to decide between Python 2.7 vs 3, but it isn't as clearcut as I'd like. Obviously it'd be preferable to use 3, but the rpi-rgb-led-matrix library that is the core of this project mentions that using Python 2.7 with the library is a little bit faster. Testing it on my own shows that Python 3 is only a little slower, so I am going to stick with it for now and if speed becomes a bottleneck I will reconsider once we get there.
