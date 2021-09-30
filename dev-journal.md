@@ -1,5 +1,19 @@
 # Dev Journal
 
+## September 29th, 2021
+
+- I've been giving it some thought, and I am starting to realize that maybe relying on the Raspberry Pi to be able to connect to wifi isn't such a great idea.
+  - Even with a hotspot, I can't be sure that the connection won't be finnicky and randomly fail during critical minutes.
+  - Also with the canvas editor mostly scrapped as part of this project, there really isn't any need to make sure the hat is connected 24/7.
+  - It would be nice to be able to control the hat via my phone, but honestly setting up ngrok is probably enough for what I need to do.
+- To make sure that the submissions can be updated easily, I have created a separate repository for them. On startup, I can run a git pull to update the designs assuming that the Pi is able to connect to the internet. This way if I ever want to update the designs, I would only need to restart the Pi physically. And since the designs are stored locally, there would be no need for constant internet access.
+- Should something go really wrong, I can hopefully use something like ngrok to fix whatever breaks assuming I still have an internet connection.
+- Starting to think I might want to do a trial run at UNC beforehand...
+- Current todo list:
+  - Display images one by one
+  - Display scrolling text messages
+  - Allow for configuration over a config file
+  - Create bash scripts to change settings easily over ssh and restart the python process
 ## September 27th, 2021
 
 - Now that the graduation cap project has gone public, time for me to clean things up a bit!
