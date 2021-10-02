@@ -1,5 +1,11 @@
 # Dev Journal
 
+## October 2nd, 2021
+
+- Gave it some _more_ thought, and decided excluding the relay server is the easy and boring move.
+  - I thought making the script capable of going through images one by one and making everything configurable might be difficult, but it turned out to be way too easy!
+  - So the node.js relay control server is back on! It'll be a "stretch goal", after I complete the message display thing (which will be difficult because I basically have to design a font but whatever)
+
 ## September 29th, 2021
 
 - I've been giving it some thought, and I am starting to realize that maybe relying on the Raspberry Pi to be able to connect to wifi isn't such a great idea.
@@ -14,6 +20,7 @@
   - Display scrolling text messages
   - Allow for configuration over a config file
   - Create bash scripts to change settings easily over ssh and restart the python process
+
 ## September 27th, 2021
 
 - Now that the graduation cap project has gone public, time for me to clean things up a bit!
