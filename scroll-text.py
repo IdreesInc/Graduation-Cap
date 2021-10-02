@@ -20,7 +20,7 @@ matrix = RGBMatrix(options = options)
 
 offscreen_canvas = matrix.CreateFrameCanvas()
 font = graphics.Font()
-font.LoadFont("./fonts/10x20.bdf")
+font.LoadFont("./fonts/7x14.bdf")
 textColor = graphics.Color(0, 255, 255)
 pos = offscreen_canvas.width
 
