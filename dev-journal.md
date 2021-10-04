@@ -1,5 +1,14 @@
 # Dev Journal
 
+## October 3rd, 2021
+
+- So, if I want to create a command and control server still, then the first thing I should probably figure out is what I actually want to control. Let's list em off:
+  - Brightness
+  - Image override - basically I want the ability to choose what image to display before letting the "slideshow" continue
+  - Git pull the submissions repo
+  - Restart the whole bloody thing
+- That's probably about it. The brightness thing is easy, just change the in-memory setting after getting a message. Git pull is probably as easy as using some python module that executes shell commands. Restarting the Raspberry Pi is just as easy, though if I just want to restart the server that might be harder (maybe execute a combined kill and python command?). The image override will be the hardest thing to program, but it is also the most important. We will see how that goes.
+
 ## October 2nd, 2021
 
 - Gave it some _more_ thought, and decided excluding the relay server is the easy and boring move.
