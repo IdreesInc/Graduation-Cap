@@ -1,5 +1,15 @@
 # Dev Journal
 
+## October 5th, 2021
+
+- Got the brightness control via the relay server up and running! Turns out it was a bit harder to control the brightness than I thought. The matrix options are set when the matrix is initialized and there are no functions I can find to modify the settings after the fact. And changes to the options later are not reflected on the matrix. Instead, I update the brightness of the image itself which works well enough. The only side effect is that the brightness only takes effect once the next design is displayed, but I'll take it.
+- I am seeing a lot more slowdown on the Pi however, and I am concerned that the websocket client along with the matrix controls are using a lot of resources. I'll have to keep an eye on this as the project progresses. I'll also have to see how battery resources are affected.
+- Current to-do list:
+  - Brightness ✅
+  - Image selection
+  - Update submissions
+  - Restart Pi
+
 ## October 3rd, 2021
 
 - So, if I want to create a command and control server still, then the first thing I should probably figure out is what I actually want to control. Let's list em off:

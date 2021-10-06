@@ -2,9 +2,12 @@
 import time
 import sys
 import json
+import socketio
 
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
-from PIL import Image
+from PIL import Image, ImageEnhance
+
+print("Starting graduation cap!")
 
 config = json.load(open("./config.json"))
 options = RGBMatrixOptions()
@@ -12,9 +15,35 @@ options.rows = 32
 options.chain_length = 1
 options.parallel = 1
 options.hardware_mapping = 'adafruit-hat'
-options.brightness = config["brightness"]
+options.brightness = 100
+
+display_brightness = config["brightness"] / 100
 
 matrix = RGBMatrix(options = options)
+
+sio = socketio.Client()
+
+@sio.event
+def connect():
+    print("I'm connected!")
+
+@sio.event
+def connect_error(data):
+    print("The connection failed!")
+
+@sio.event
+def disconnect():
+    print("I'm disconnected!")
+
+@sio.event
+def brightness(data):
+    global display_brightness
+    print('Message received, brightness -> ' + data)
+    display_brightness = float(data) / 100
+
+
+if "relayHost" in config:
+    sio.connect(config["relayHost"])
 
 if len(sys.argv) == 2:
     # Display image mode, usually used for debugging or manual control
@@ -31,12 +60,10 @@ if len(sys.argv) == 2:
         matrix.SetImage(image.convert('RGB'))
         time.sleep(0.05)
 else:
-    print("Starting graduation cap")
     # Get text display ready
     offscreen_canvas = matrix.CreateFrameCanvas()
     font = graphics.Font()
     font.LoadFont("./fonts/7x14.bdf")
-    textColor = graphics.Color(0, 255, 255)
     # Get designs from external folder
     submissions_config = json.load(open(config["submissionsDirectory"] + "/submissions.json"))
     submissions = submissions_config["submissions"]
@@ -51,6 +78,7 @@ else:
             position = offscreen_canvas.width
             while True:
                 offscreen_canvas.Clear()
+                textColor = graphics.Color(0 * display_brightness, 255 * display_brightness, 255 * display_brightness)
                 text_length = graphics.DrawText(offscreen_canvas, font, position, 22, textColor, submission["message"])
                 position -= 1
                 if (position + text_length < 0):
@@ -61,5 +89,7 @@ else:
         else:
             image = Image.open(config["submissionsDirectory"] + "/designs/" + submission["design"])
             image.thumbnail((matrix.width, matrix.height))
-            matrix.SetImage(image.convert('RGB'))
+            enhancer = ImageEnhance.Brightness(image.convert('RGB'))
+            brightened_image = enhancer.enhance(display_brightness)
+            matrix.SetImage(brightened_image)
             time.sleep(design_duration)
