@@ -26,6 +26,7 @@ sio = socketio.Client()
 @sio.event
 def connect():
     print("I'm connected!")
+    sio.emit("graduation-cap-connected", "I'm in")
 
 @sio.event
 def connect_error(data):
@@ -43,7 +44,10 @@ def brightness(data):
 
 
 if "relayHost" in config:
-    sio.connect(config["relayHost"])
+    try:
+        sio.connect(config["relayHost"])
+    except Exception:
+        print("Error while trying to connect to socketio server, proceeding to get on with life")
 
 if len(sys.argv) == 2:
     # Display image mode, usually used for debugging or manual control

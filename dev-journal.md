@@ -1,5 +1,11 @@
 # Dev Journal
 
+## October 6th, 2021
+
+- Added the ability to view the graduation cap's connection status in the client controller webapp.
+  - One thing I found interesting was that I had to remember to pass on whether the grad cap was connected to new client connections as well, otherwise they'd miss the broadcast that occurs when the cap first connects.
+  - It's really satisfying being able to kill the grad cap script, watch the status switch to disconnected, run the script again, and then see the status switch back to connected without having to refresh the client page at all.
+
 ## October 5th, 2021
 
 - Got the brightness control via the relay server up and running! Turns out it was a bit harder to control the brightness than I thought. The matrix options are set when the matrix is initialized and there are no functions I can find to modify the settings after the fact. And changes to the options later are not reflected on the matrix. Instead, I update the brightness of the image itself which works well enough. The only side effect is that the brightness only takes effect once the next design is displayed, but I'll take it.
