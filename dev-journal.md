@@ -5,6 +5,16 @@
 - Added the ability to view the graduation cap's connection status in the client controller webapp.
   - One thing I found interesting was that I had to remember to pass on whether the grad cap was connected to new client connections as well, otherwise they'd miss the broadcast that occurs when the cap first connects.
   - It's really satisfying being able to kill the grad cap script, watch the status switch to disconnected, run the script again, and then see the status switch back to connected without having to refresh the client page at all.
+- Added the ability to override the image currently being displayed on the cap.
+  - While the feature works, it only overrides the image for 10 seconds. Could do to add a customizable timeout there.
+- It'd be nice if updates to settings were reflected faster, might want to reduce the time.sleep and instead use timestamps to determine when to go to the next submission.
+- To-Do
+  - Control brightness ✅
+  - Override image selection ✅
+  - Custom image override duration
+  - Quick refreshes
+  - Trigger git pulls
+  - Trigger Pi restart (maybe)
 
 ## October 5th, 2021
 

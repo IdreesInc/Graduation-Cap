@@ -18,6 +18,7 @@ options.hardware_mapping = 'adafruit-hat'
 options.brightness = 100
 
 display_brightness = config["brightness"] / 100
+display_override = None
 
 matrix = RGBMatrix(options = options)
 
@@ -25,7 +26,7 @@ sio = socketio.Client()
 
 @sio.event
 def connect():
-    print("I'm connected!")
+    print("Connection to relay server established!")
     sio.emit("graduation-cap-connected", "I'm in")
 
 @sio.event
@@ -34,7 +35,7 @@ def connect_error(data):
 
 @sio.event
 def disconnect():
-    print("I'm disconnected!")
+    print("I'm disconnected from the relay server!")
 
 @sio.event
 def brightness(data):
@@ -42,6 +43,18 @@ def brightness(data):
     print('Message received, brightness -> ' + data)
     display_brightness = float(data) / 100
 
+@sio.event
+def display(data):
+    global display_override
+    print('Message received, display -> ' + data)
+    display_override = int(data)
+
+def display_image(path):
+    image = Image.open(path)
+    image.thumbnail((matrix.width, matrix.height))
+    enhancer = ImageEnhance.Brightness(image.convert('RGB'))
+    brightened_image = enhancer.enhance(display_brightness)
+    matrix.SetImage(brightened_image)
 
 if "relayHost" in config:
     try:
@@ -75,25 +88,31 @@ else:
     message_duration = config["messageDuration"]
     submission_index = -1
     while True:
-        submission_index += 1
-        submission = submissions[submission_index % len(submissions)]
-        if not "design" in submission and "message" in submission:
-            offscreen_canvas.Clear()
-            position = offscreen_canvas.width
-            while True:
+        if display_override is None:
+            submission_index += 1
+            submission = submissions[submission_index % len(submissions)]
+            if not "design" in submission and "message" in submission:
                 offscreen_canvas.Clear()
-                textColor = graphics.Color(0 * display_brightness, 255 * display_brightness, 255 * display_brightness)
-                text_length = graphics.DrawText(offscreen_canvas, font, position, 22, textColor, submission["message"])
-                position -= 1
-                if (position + text_length < 0):
-                    break
+                position = offscreen_canvas.width
+                while True:
+                    offscreen_canvas.Clear()
+                    textColor = graphics.Color(0 * display_brightness, 255 * display_brightness, 255 * display_brightness)
+                    text_length = graphics.DrawText(offscreen_canvas, font, position, 22, textColor, submission["message"])
+                    position -= 1
+                    if (position + text_length < 0):
+                        break
 
-                time.sleep(message_duration / text_length)
-                offscreen_canvas = matrix.SwapOnVSync(offscreen_canvas)
+                    time.sleep(message_duration / text_length)
+                    offscreen_canvas = matrix.SwapOnVSync(offscreen_canvas)
+            else:
+                display_image(config["submissionsDirectory"] + "/designs/" + submission["design"])
+                time.sleep(design_duration)
         else:
-            image = Image.open(config["submissionsDirectory"] + "/designs/" + submission["design"])
-            image.thumbnail((matrix.width, matrix.height))
-            enhancer = ImageEnhance.Brightness(image.convert('RGB'))
-            brightened_image = enhancer.enhance(display_brightness)
-            matrix.SetImage(brightened_image)
-            time.sleep(design_duration)
+            if display_override > 0 and display_override < len(submissions):
+                submission = submissions[display_override]
+                display_image(config["submissionsDirectory"] + "/designs/" + submission["design"])
+                display_override = None
+                time.sleep(10)
+            else:
+                display_override = None
+                print("Error: Display override of " + display_override + " is out of bounds") 
