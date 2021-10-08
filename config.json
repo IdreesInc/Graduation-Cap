@@ -1,8 +1,8 @@
 {
     "brightness": 100,
     "submissionsDirectory": "../Graduation-Cap-Submissions",
-    "designDuration": 3,
+    "designDuration": 5,
     "messageDuration": 3,
-    "updatesPerSubmission": 6,
+    "updatesPerSubmission": 10,
     "relayHost": "http://[INSERT-IP-HERE]:5000"
 }
