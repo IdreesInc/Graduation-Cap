@@ -3,5 +3,6 @@
     "submissionsDirectory": "../Graduation-Cap-Submissions",
     "designDuration": 3,
     "messageDuration": 3,
+    "updatesPerSubmission": 6,
     "relayHost": "http://[INSERT-IP-HERE]:5000"
 }

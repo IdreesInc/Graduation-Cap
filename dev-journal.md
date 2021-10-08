@@ -1,5 +1,11 @@
 # Dev Journal
 
+## October 7th, 2021
+
+- Increased the update rate of the display.
+- Added retry logic for the relay server initial connection. That way if the cap isn't connected on the first startup, it can try again.
+- Made the design overrides indefinite with a command to release control.
+
 ## October 6th, 2021
 
 - Added the ability to view the graduation cap's connection status in the client controller webapp.
