@@ -4,8 +4,8 @@
 
 - Display image submissions ✅
 - Display text submissions ✅
-- Control via relay server ⏳
+- Control via relay server ✅
 
-### To learn more and see how you can submit your own designs, check out my write-up [here!](https://idreesinc.com/graduation/design-my-graduation-cap.html?utm_source=github&utm_medium=readme&utm_campaign=graduation-cap)
+### To learn more and see how you can submit your own designs, check out my write-up [here!](https://idreesinc.com/about-graduation.html?utm_source=github&utm_medium=readme&utm_campaign=graduation-cap)
 
-![Graduation cap running](https://idreesinc.com/images/graduation/matrix-on.jpeg)
+![Graduation cap running](https://idreesinc.com/images/graduation/matrix-raspberry-pi.jpg)
